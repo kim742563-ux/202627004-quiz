@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>html vs htm & http vs https 완벽 정복</title>
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --secondary: #357abd;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+        }
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Malgun Gothic', dotum, sans-serif; 
+        }
+        body { 
+            background-color: #f0f3f6; 
+            color: var(--dark); 
+            line-height: 1.6; 
+            padding: 20px; 
+        }
+        .container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+        }
+        header { 
+            text-align: center; 
+            margin-bottom: 4px; 
+            padding-bottom: 20px; 
+            border-bottom: 3px solid var(--primary); 
+        }
+        header h1 { 
+            color: var(--primary); 
+            font-size: 28px; 
+            margin-bottom: 10px; 
+        }
+        header p { 
+            color: #666; 
+            font-size: 16px; 
+        }
+        
+        .lesson-section { 
+            margin: 30px 0; 
+        }
+        .lesson-card { 
+            background: var(--light); 
+            border-left: 5px solid var(--primary); 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            border-radius: 0 8px 8px 0; 
+        }
+        .lesson-card h2 { 
+            color: var(--dark); 
+            font-size: 20px; 
+            margin-bottom: 12px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+        }
+        .lesson-card ul { 
+            margin-left: 20px; 
+        }
+        .lesson-card li { 
+            margin-bottom: 8px; 
+        }
+        .highlight { 
+            font-weight: bold; 
+            color: var(--primary); 
+        }
+        .badge { 
+            background: #e1ecf4; 
+            color: #39739d; 
+            padding: 2px 6px; 
+            border-radius: 4px; 
+            font-size: 14px; 
+            font-family: monospace; 
+        }
+        
+        .quiz-section { 
+            background: #edf2f7; 
+            padding: 25px; 
+            border-radius: 10px; 
+            border: 2px dashed var(--primary); 
+            margin-top: 40px; 
+        }
+        .quiz-section h2 { 
+            text-align: center; 
+            color: var(--dark); 
+            margin-bottom: 20px; 
+        }
+        .quiz-container { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin-bottom: 15px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+        }
+        .quiz-question { 
+            font-size: 17px; 
+            font-weight: bold; 
+            margin-bottom: 12px; 
+        }
+        .quiz-options { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+        }
+        .option-btn { 
+            background: #fff; 
+            border: 1px solid #ccd0d4; 
+            padding: 12px; 
+            border-radius: 6px; 
+            text-align: left; 
+            cursor: pointer; 
+            font-size: 15px; 
+            transition: all 0.2s; 
+        }
+        .option-btn:hover { 
+            background: #f0f4f8; 
+            border-color: var(--primary); 
+        }
+        .option-btn.selected { 
+            background: #e3f2fd; 
+            border-color: var(--primary); 
+            font-weight: bold; 
+        }
+        
+        .action-container { 
+            text-align: center; 
+            margin-top: 25px; 
+        }
+        .submit-btn { 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            padding: 15px 40px; 
+            font-size: 18px; 
+            font-weight: bold; 
+            border-radius: 30px; 
+            cursor: pointer; 
+            transition: background 0.2s; 
+        }
+        .submit-btn:hover { 
+            background: var(--secondary); 
+        }
+        
+        .result-box { 
+            display: none; 
+            margin-top: 20px; 
+            padding: 20px; 
+            border-radius: 8px; 
+            text-align: center; 
+            font-size: 18px; 
+            font-weight: bold; 
+        }
+        .result-box.success { 
+            background: #d4edda; 
+            color: #155724; 
+            border: 1px solid #c3e6cb; 
+        }
+        .result-box.fail { 
+            background: #f8d7da; 
+            color: #721c24; 
+            border: 1px solid #f5c6cb; 
+        }
+        
+        .feedback { 
+            margin-top: 8px; 
+            font-size: 14px; 
+            font-weight: bold; 
+            display: none; 
+        }
+        .feedback.correct { 
+            color: var(--success); 
+        }
+        .feedback.incorrect { 
+            color: var(--danger); 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🌐 인터넷과 웹 기술 기초 교실</h1>
+    </header>
+
+    <div class="lesson-section">
+        <div class="lesson-card">
+            <h2>📄 1. .html과 .htm의 차이가 무엇일까요?</h2>
+            <p>정답부터 말하자면, 두 확장자는 기능적으로 <span class="highlight">100% 똑같습니다!</span> 웹 브라우저는 두 파일 모두 똑같은 웹 페이지로 인식해요.</p>
+            <br>
+            <ul>
+                <li>
+                    <strong>왜 두 개가 생겼나요?</strong> 
+                    아주 옛날 DOS(도스)나 윈도우 3.1 컴퓨터 시절에는 파일 확장자를 무조건 3글자(<span class="badge">.htm</span>)로만 써야 하는 제한이 있었어요.
+                </li>
+                <li>
+                    <strong>지금은 어떤가요?</strong> 
+                    리눅스, 맥, 최신 윈도우는 글자 수 제한이 없기 때문에 원래 풀네임인 <span class="badge">.html</span>을 마음껏 쓸 수 있게 되었습니다.
+                </li>
+                <li>
+                    <strong>무엇을 써야 할까요?</strong> 
+                    오늘날에는 표준이자 더 직관적인 <span class="highlight">.html 확장자 사용을 강력히 권장</span>합니다.
+                </li>
+            </ul>
+        </div>
+
+        <div class="lesson-card">
+            <h2>🔒 2. http://와 https://의 차이는 무엇일까요?</h2>
+            <p>웹사이트 주소 맨 앞에 붙는 이 글자들은 정보를 주고받는 '규칙(프로토콜)'입니다. 핵심 차이는 바로 <span class="highlight">보안과 암호화</span>입니다.</p>
+            <br>
+            <ul>
+                <li>
+                    <strong>HTTP (기본형):</strong> 
+                    데이터를 가공하지 않은 일반 텍스트 형태로 전송합니다. 만약 해커가 중간에 가로채면 비밀번호나 개인정보가 그대로 노출되어 위험해요! (<span class="badge">80번 포트</span> 사용)
+                </li>
+                <li>
+                    <strong>HTTPS (보안형):</strong> 
+                    뒤에 붙은 <strong>S</strong>는 Secure(보안)를 뜻해요. 데이터를 알아볼 수 없게 꽁꽁 암호화해서 전송하기 때문에 아주 안전합니다. (<span class="badge">443번 포트</span> 사용)
+                </li>
+                <li>
+                    <strong>보너스 혜택:</strong> 
+                    구글 같은 검색엔진은 보안이 강화된 HTTPS 사이트를 이뻐해서 검색 결과 위쪽에 먼저 보여주고(SEO 혜택), 브라우저 주소창에 안전하다는 <span class="highlight">🔒 자물쇠 표시</span>도 달아줍니다!
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="quiz-section">
+        <h2>✏️ 배운 내용 확인 퀴즈!</h2>
+        
+        <div class="quiz-container" data-q="1">
+            <p class="quiz-question">Q1. .html과 .htm 파일 확장자의 기능적 차이점에 대한 설명으로 올바른 것은?</p>
+            <div class="quiz-options">
+                <button class="option-btn" data-value="A">A) .html이 최신 기술이라서 웹 브라우저에서 훨씬 빠르게 열린다.</button>
+                <button class="option-btn" data-value="B">B) 과거 운영체제의 3글자 확장자 제한 때문에 생긴 역사적 차이일 뿐, 기능은 완벽히 같다.</button>
+                <button class="option-btn" data-value="C">C) .htm 파일에는 이미지를 넣을 수 없다.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="quiz-container" data-q="2">
+            <p class="quiz-question">Q2. 다음 중 HTTPS 프로토콜의 특징이 아닌 것은 무엇일까요?</p>
+            <div class="quiz-options">
+                <button class="option-btn" data-value="A">A) 데이터를 평문(일반 텍스트)으로 보내기 때문에 암호화 처리가 전혀 없다.</button>
+                <button class="option-btn" data-value="B">B) 주소창에 🔒 자물쇠 아이콘이 표시되어 사용자가 신뢰할 수 있다.</button>
+                <button class="option-btn" data-value="C">C) 기본적으로 443번 통신 포트를 사용한다.</button>
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="action-container">
+            <button class="submit-btn" onclick="checkAnswers()">퀴즈 채점하기</button>
+        </div>
+
+        <div id="resultBox" class="result-box"></div>
+    </div>
+</div>
+
+<script>
+    const answers = { 1: "B", 2: "A" };
+
+    document.querySelectorAll('.quiz-container').forEach(container => {
+        const qId = container.getAttribute('data-q');
+        const buttons = container.querySelectorAll('.option-btn');
+        
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+            });
+        });
+    });
+
+    function checkAnswers() {
+        let score = 0;
+        const total = Object.keys(answers).length;
+
+        for (let id in answers) {
+            const container = document.querySelector(`.quiz-container[data-q="${id}"]`);
+            const selectedBtn = container.querySelector('.option-btn.selected');
+            const feedback = container.querySelector('.feedback');
+            
+            if (!selectedBtn) {
+                alert(`${id}번 문제의 답을 선택해 주세요!`);
+                return;
+            }
+
+            const userAnswer = selectedBtn.getAttribute('data-value');
+            if (userAnswer === answers[id]) {
+                score++;
+                feedback.textContent = "⭕ 정답입니다! 아주 잘 이해하셨어요.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = `❌ 오답입니다. 정답은 (${answers[id]}) 입니다. 다시 한번 읽어보세요!`;
+                feedback.className = "feedback incorrect";
+            }
+            feedback.style.display = "block";
+        }
+
+        const resultBox = document.getElementById('resultBox');
+        resultBox.style.display = "block";
+        if (score === total) {
+            resultBox.textContent = `🎉 만점입니다! (${score}/${total}) 웹 기술 마스터가 되셨네요!`;
+            resultBox.className = "result-box success";
+        } else {
+            resultBox.textContent = `👍 아쉬워요! (${score}/${total}) 틀린 문제를 다시 확인해 보세요.`;
+            resultBox.className = "result-box fail";
+        }
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
